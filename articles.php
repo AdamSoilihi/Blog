@@ -28,30 +28,22 @@ require_once(__DIR__ . '/functions.php');
     <main>
             <section class="presentation">
                 <div>
-                    <h1>Présentation</h1>
-                    <p> </p>
-                    <a href="contact.php" class="bouton">Nous contacter</a>
+                    <h1>Les articles</h1>
+                   
                 </div>    
             </section>
-            <section class="section-contact">
-                <!-- Formulaire de connexion -->
-    	        <?php require_once(__DIR__ . '/login.php'); ?>
-            </section>
-                
+            
             <section class="catalogue">
-                <?php if (isset($loggedUser)) : ?>
-                    <h2>Les articles</h2>
-                        <?php foreach (getArticles($articles) as $article) : ?>
-                            <div class="ligne-catalogue">
-                                <article>
-                                    <h3><?php echo $article['titreArticle']; ?></h3>
-                                    <div><?php echo $article['chapoArticle']; ?></div>
-                                    <i><?php echo displayAuthor($article['nomUtilisateur'], $utilisateurs); ?></i>
-                                </article>
-                            </div> 
-                        <?php endforeach ?>
-                <?php endif; ?>                                          
-                              
+                
+                <?php foreach (getArticles($articles) as $article) : ?>
+                    <div class="ligne-catalogue">
+                        <article>
+                            <h3><a href="#?id=<?php echo ($article['titreArticle']); ?>"> <?php echo($article['titreArticle']); ?> </a></h3>
+                            <div><?php echo $article['chapoArticle']; ?></div>
+                            <i><?php echo displayAuthor($article['nomUtilisateur'], $utilisateurs); ?></i>
+                        </article>
+                    </div> 
+                <?php endforeach ?>
             </section>
     </main>
     <footer>
