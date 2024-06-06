@@ -29,6 +29,9 @@ require_once(__DIR__ . '/functions.php');
             <section class="presentation">
                 <div>
                     <h1>Les articles</h1>
+                    <?php if(isset($_SESSION['loggedUser'])):?>
+                        <h4><?php echo 'Salut '.$_SESSION['loggedUser']['nom'];?></h4>
+                    <?php endif;?>
                    
                 </div>    
             </section>
