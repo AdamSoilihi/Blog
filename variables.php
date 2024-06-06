@@ -3,7 +3,7 @@
 // Récupération des variables à l'aide du client MySQL
 
 //Récupération de tous les utilisateurs validés
-$usersStatement = $mysqlClient->prepare('SELECT * FROM users_valide_vw');
+$usersStatement = $mysqlClient->prepare('SELECT * FROM utilisateurs');
 $usersStatement->execute();
 $utilisateurs = $usersStatement->fetchAll();
 
