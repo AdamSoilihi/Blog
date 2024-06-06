@@ -34,6 +34,13 @@ function getArticles(array $articles): array
     }
     return $valid_articles;
 }
+//pour rediriger vers une page
+function redirectToUrl(string $url): never
+{
+    header("Location: {$url}");//Pour charger une nouvelle page
+    exit();//pour arreter l'execution de la suite des codes PHP
+}
+?>
 
 
 ?>
