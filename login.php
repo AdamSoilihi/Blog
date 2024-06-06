@@ -88,7 +88,7 @@
                         <input type="submit" value="SE CONNECTER" class="bouton" >
                 </form>
                 
-                <!-- Si utilisateur/trice bien connectée on affiche un message de succès -->
+                <!-- Si utilisateur est connectée redirige le vers la page d'accueil -->
             <?php else : ?>
                 <div>
                     <?php redirectToUrl("index.php");?>
