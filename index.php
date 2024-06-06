@@ -3,8 +3,7 @@ session_start();
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/databaseconnect.php');
 require_once(__DIR__ . '/variables.php');
-require_once(__DIR__ . '/functions.php');
-?>
+require_once(__DIR__ . '/functions.php');?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +28,9 @@ require_once(__DIR__ . '/functions.php');
             <section class="presentation">
                 <div>
                     <h1>Présentation</h1>
-                    <p> </p>
+                    <?php if(isset($_SESSION['loggedUser'])):?>
+                        <h1><?php echo 'Bonjour '.$_SESSION['loggedUser']['nom'];?></h1>
+                    <?php endif;?>
                     <a href="contact.php" class="bouton">Nous contacter</a>
                 </div>    
             </section>
