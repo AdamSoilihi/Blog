@@ -2,12 +2,12 @@
 
 // Récupération des variables à l'aide du client MySQL
 
-//Récupération de tous les utilisateurs
-$usersStatement = $mysqlClient->prepare('SELECT * FROM utilisateurs');
+//Récupération de tous les utilisateurs validés
+$usersStatement = $mysqlClient->prepare('SELECT * FROM users_valide_vw');
 $usersStatement->execute();
 $utilisateurs = $usersStatement->fetchAll();
 
-//récupérations des recettes validés
+//récupérations des articles validés
 $sqlQuery = 'SELECT *, utilisateurs.nomUtilisateur FROM articles JOIN utilisateurs ON
                  articles.idUtilisateur = utilisateurs.idUtilisateur WHERE valideArticle = :valideArticle';
 

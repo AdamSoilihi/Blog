@@ -33,25 +33,20 @@ require_once(__DIR__ . '/functions.php');
                     <a href="contact.php" class="bouton">Nous contacter</a>
                 </div>    
             </section>
-            <section class="section-contact">
-                <!-- Formulaire de connexion -->
-    	        <?php require_once(__DIR__ . '/login.php'); ?>
-            </section>
                 
             <section class="catalogue">
-                <?php if (isset($loggedUser)) : ?>
-                    <h2>Les articles</h2>
-                        <?php foreach (getArticles($articles) as $article) : ?>
-                            <div class="ligne-catalogue">
-                                <article>
-                                    <h3><?php echo $article['titreArticle']; ?></h3>
-                                    <div><?php echo $article['chapoArticle']; ?></div>
-                                    <i><?php echo displayAuthor($article['nomUtilisateur'], $utilisateurs); ?></i>
-                                </article>
-                            </div> 
-                        <?php endforeach ?>
-                <?php endif; ?>                                          
-                              
+                <h2>Les articles</h2>
+                    <?php foreach ($articles as $article) : ?>
+                        <div class="ligne-catalogue">
+                        <?php $date=date('d/m/Y', strtotime($article['dateCreationArticle'])); ?>
+                            <article>
+                                <h4><?php echo $article['titreArticle']; ?></h4>
+                                <div><?php echo $article['chapoArticle']; ?></div>
+                                <div><i><?php echo $article['nomUtilisateur']; ?></i></div>
+                                <i><?php echo 'Date de création: '.$date; ?></i>
+                            </article>
+                        </div> 
+                    <?php endforeach ?>
             </section>
     </main>
     <footer>
