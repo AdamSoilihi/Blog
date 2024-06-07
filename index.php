@@ -39,12 +39,22 @@ require_once(__DIR__ . '/functions.php');?>
                 <h2>Les articles</h2>
                     <?php foreach ($articles as $article) : ?>
                         <div class="ligne-catalogue">
+                            
                         <?php $date=date('d/m/Y', strtotime($article['dateCreationArticle'])); ?>
                             <article>
-                                <h4><?php echo $article['titreArticle']; ?></h4>
+                                <h4>
+                                    <a href="read_article.php" >
+                                    <?php echo $article['titreArticle']; ?></a>
+                                </h4>
                                 <div><?php echo $article['chapoArticle']; ?></div>
                                 <div><i><?php echo $article['nomUtilisateur']; ?></i></div>
                                 <i><?php echo 'Date de création: '.$date; ?></i>
+
+                                <!-- Affichage d'option si l'utilisateur est identifié -->
+                                <?php if(isset($_SESSION['loggedUser']) && $article['nomUtilisateur']===$_SESSION['loggedUser']['nom']):?>
+                                    <a href="update_article.php?id=<?php echo($article['idArticle']); ?>">Modifier l'article</a>
+                                    <a href="delete_article.php?id=<?php echo($article['idArticle']); ?>">Supprimer l'article</a>
+                                <?php endif;?>
                             </article>
                         </div> 
                     <?php endforeach ?>
