@@ -25,6 +25,8 @@
                     $_SESSION['loggedUser'] = [
                         'nom' => $user['nomUtilisateur'],
                         'idUtilisateur'=>$user['idUtilisateur'],
+                        'administrateur'=>$user['administrateur'],
+
                     ];
                 }
             }

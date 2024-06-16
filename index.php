@@ -3,7 +3,8 @@ session_start();
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/databaseconnect.php');
 require_once(__DIR__ . '/variables.php');
-require_once(__DIR__ . '/functions.php');?>
+require_once(__DIR__ . '/functions.php');
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -43,18 +44,23 @@ require_once(__DIR__ . '/functions.php');?>
                         <?php $date=date('d/m/Y', strtotime($article['dateCreationArticle'])); ?>
                             <article>
                                 <h4>
-                                    <a href="read_article.php" >
-                                    <?php echo $article['titreArticle']; ?></a>
+                                    <a href="read_article.php?id=<?php echo($article['idArticle']); ?>" ><?php echo $article['titreArticle']; ?></a>
                                 </h4>
                                 <div><?php echo $article['chapoArticle']; ?></div>
                                 <div><i><?php echo $article['nomUtilisateur']; ?></i></div>
-                                <i><?php echo 'Date de création: '.$date; ?></i>
+                                <i><?php echo 'Date de création: '.$date; ?></i><br>
 
                                 <!-- Affichage d'option si l'utilisateur est identifié -->
-                                <?php if(isset($_SESSION['loggedUser']) && $article['nomUtilisateur']===$_SESSION['loggedUser']['nom']):?>
+                                <?php if(isset($_SESSION['loggedUser']) && $_SESSION['loggedUser']['administrateur']===1):?>
+                                    
                                     <a href="update_article.php?id=<?php echo($article['idArticle']); ?>">Modifier l'article</a>
                                     <a href="delete_article.php?id=<?php echo($article['idArticle']); ?>">Supprimer l'article</a>
-                                <?php endif;?>
+                                    <?php else:?>
+                                    <?php if(isset($_SESSION['loggedUser']) && $article['nomUtilisateur']===$_SESSION['loggedUser']['nom']):?>
+                                        <a href="update_article.php?id=<?php echo($article['idArticle']); ?>">Modifier l'article</a>
+                                    <a href="delete_article.php?id=<?php echo($article['idArticle']); ?>">Supprimer l'article</a>
+                                 <?php endif;?>
+                                 <?php endif;?>
                             </article>
                         </div> 
                     <?php endforeach ?>

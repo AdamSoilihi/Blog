@@ -24,7 +24,8 @@ if (
 }else{
     foreach($utilisateurs as $users){
         if($users['email'] === $postData['email']){
-            $messageError sprintf('email existant');
+            $messageError =
+            sprintf('email existant');
             
         }
     }
@@ -36,7 +37,8 @@ $pwd = trim(strip_tags($postData['pwd']));
 
 
 // Faire l'insertion en base
-$createUser = $mysqlClient->prepare('INSERT INTO utilisateurs(nomUtilisateur, email, motDePasse, administrateur, valideUtilisateur) VALUES (:nomUtilisateur, :email, :motDePasse, :administrateur, :valideUtilisateur)');
+$createUser = $mysqlClient->prepare('INSERT INTO utilisateurs(nomUtilisateur, email, motDePasse, administrateur, valideUtilisateur) 
+VALUES (:nomUtilisateur, :email, :motDePasse, :administrateur, :valideUtilisateur)');
 $createUser->execute([
     'nomUtilisateur' => $nom,
     'email' => $email,

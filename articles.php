@@ -17,7 +17,7 @@ require_once(__DIR__ . '/functions.php');
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
 
-    <title>Blog - Accueil</title>
+    <title>Blog - Les articles</title>
     
 </head>
 <body>
@@ -29,24 +29,37 @@ require_once(__DIR__ . '/functions.php');
             <section class="presentation">
                 <div>
                     <h1>Les articles</h1>
-                    <?php if(isset($_SESSION['loggedUser'])):?>
-                        <h4><?php echo 'Salut '.$_SESSION['loggedUser']['nom'];?></h4>
-                    <?php endif;?>
-                   
                 </div>    
             </section>
             
             <section class="catalogue">
-                
-                <?php foreach (getArticles($articles) as $article) : ?>
-                    <div class="ligne-catalogue">
-                        <article>
-                            <h3><a href="#?id=<?php echo ($article['titreArticle']); ?>"> <?php echo($article['titreArticle']); ?> </a></h3>
-                            <div><?php echo $article['chapoArticle']; ?></div>
-                            <i><?php echo displayAuthor($article['nomUtilisateur'], $utilisateurs); ?></i>
-                        </article>
-                    </div> 
-                <?php endforeach ?>
+                <h2>Les articles</h2>
+                    <?php foreach ($articles as $article) : ?>
+                        <div class="ligne-catalogue">
+                            
+                        <?php $date=date('d/m/Y', strtotime($article['dateCreationArticle'])); ?>
+                            <article>
+                                <h4>
+                                    <a href="read_article.php?id=<?php echo($article['idArticle']); ?>" ><?php echo $article['titreArticle']; ?></a>
+                                </h4>
+                                <div><?php echo $article['chapoArticle']; ?></div>
+                                <div><i><?php echo $article['nomUtilisateur']; ?></i></div>
+                                <i><?php echo 'Date de création: '.$date; ?></i><br>
+
+                                <!-- Affichage d'option si l'utilisateur est identifié -->
+                                <?php if(isset($_SESSION['loggedUser']) && $_SESSION['loggedUser']['administrateur']===1):?>
+                                    
+                                    <a href="update_article.php?id=<?php echo($article['idArticle']); ?>">Modifier l'article</a>
+                                    <a href="delete_article.php?id=<?php echo($article['idArticle']); ?>">Supprimer l'article</a>
+                                    <?php else:?>
+                                    <?php if(isset($_SESSION['loggedUser']) && $article['nomUtilisateur']===$_SESSION['loggedUser']['nom']):?>
+                                        <a href="update_article.php?id=<?php echo($article['idArticle']); ?>">Modifier l'article</a>
+                                    <a href="delete_article.php?id=<?php echo($article['idArticle']); ?>">Supprimer l'article</a>
+                                 <?php endif;?>
+                                 <?php endif;?>
+                            </article>
+                        </div> 
+                    <?php endforeach ?>
             </section>
     </main>
     <footer>
