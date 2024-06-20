@@ -1,9 +1,9 @@
 <?php
 session_start();
-
-require_once(__DIR__ . '/isConnect.php');
 require_once(__DIR__ . '/config/mysql.php');
 require_once(__DIR__ . '/databaseconnect.php');
+require_once(__DIR__ . '/variables.php');
+require_once(__DIR__ . '/functions.php');
 
 
 /**
@@ -12,7 +12,7 @@ require_once(__DIR__ . '/databaseconnect.php');
 $postData = $_POST;
 $getData = $_GET;
 
-if (
+/*if (
     !isset($postData['commentaire']) ||
     !isset($getData['id']) ||
     !is_numeric($getData['id'])
@@ -20,22 +20,26 @@ if (
     echo('Le commentaire est invalide.');
     
     return;
-}
+}*/
 
 $comment = trim(strip_tags($postData['commentaire']));
 $idArticle = (int)$postData['id'];
+$idUtilisateur=$_SESSION['loggedUser']['idUtilisateur'];
 
 if ($comment === '') {
     echo 'Le commentaire ne peut pas être vide.';
     return;
 }
+/*<?php if (!isset($_SESSION['loggedUser'])) {
+          $recupIdUtilisateur=   $mysqlClient->prepare('   ');
+}?>*/
 
-$insertComment = $mysqlClient->prepare('INSERT INTO commentaires(contenuCommentaire, idArticle, idUtilisateur) 
-VALUES (:contenuCommentaire, :idArticle, :idUtilisateur)');
+$insertComment = $mysqlClient->prepare('INSERT INTO commentaires(contenuCommentaire, idArticle, idUtilisateur, dateCreationCommentaire,valideCommentaire) 
+VALUES (:contenuCommentaire, :idArticle, :idUtilisateur, :dateCreationCommentaire,:valideCommentaire)');
 $insertComment->execute([
     'contenuCommentaire' => $comment,
     'idArticle' => $idArticle,
-    'idUtilisateur' => $_SESSION['loggedUser']['idUtilisateur'],
+    'idUtilisateur' => $idUtilisateur,
     'dateCreationCommentaire' => date("Y-m-d"),
     'valideCommentaire' => 0,
 ]);

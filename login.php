@@ -26,6 +26,7 @@
                         'nom' => $user['nomUtilisateur'],
                         'idUtilisateur'=>$user['idUtilisateur'],
                         'administrateur'=>$user['administrateur'],
+                        
 
                     ];
                 }
@@ -93,6 +94,7 @@
                 <!-- Si utilisateur est connectée redirige le vers la page d'accueil -->
             <?php else : ?>
                 <div>
+                    
                     <?php redirectToUrl("index.php");?>
                 </div>
             <?php endif; ?>

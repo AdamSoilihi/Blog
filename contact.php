@@ -28,7 +28,7 @@ require_once(__DIR__ . '/functions.php');
     <main>
         <section class="section-contact">
                 <h2>Nous écrire</h2>
-            <form method="POST" action="#">
+            <form action="submit_contact.php" method="POST" enctype="multipart/form-data">
                 <div class="form-nom-email">
                     <div class="form-column">
                         <label for="nom">Nom</label>
