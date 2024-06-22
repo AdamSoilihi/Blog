@@ -17,7 +17,7 @@ require_once(__DIR__ . '/functions.php');
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css">
 
-    <title>Blog - Accueil</title>
+    <title>Blog - Les articles non validés</title>
     
 </head>
 <body>
@@ -28,17 +28,13 @@ require_once(__DIR__ . '/functions.php');
     <main>
             <section class="presentation">
                 <div>
-                    <h1>Présentation</h1>
-                    <?php if(isset($_SESSION['loggedUser'])):?>
-                        <h1><?php echo 'Bonjour '.$_SESSION['loggedUser']['nom'];?></h1>
-                    <?php endif;?>
-                    <a href="contact.php" class="bouton">Nous contacter</a>
+                    <h1>Les articles non validés</h1>
                 </div>    
             </section>
-                
+            
             <section class="catalogue">
-                <h2>Les articles</h2>
-                    <?php foreach ($articles as $article) : ?>
+                <h2>Les articles non validés</h2>
+                    <?php foreach ($ArticleNonValides as $article) : ?>
                         <div class="ligne-catalogue">
                             
                         <?php $date=date('d/m/Y', strtotime($article['dateCreationArticle'])); ?>
@@ -52,16 +48,10 @@ require_once(__DIR__ . '/functions.php');
 
                                 <!-- Affichage d'option si l'utilisateur est identifié -->
                                 <?php if(isset($_SESSION['loggedUser']) && $_SESSION['loggedUser']['administrateur']===1):?>
-                                    
                                     <a href="update_article.php?id=<?php echo($article['idArticle']); ?>">Modifier l'article</a>
                                     <a href="delete_article.php?id=<?php echo($article['idArticle']); ?>">Supprimer l'article</a>
-                                    
-                                    <?php else:?>
-                                    <?php if(isset($_SESSION['loggedUser']) && $article['nomUtilisateur']===$_SESSION['loggedUser']['nom']):?>
-                                        <a href="update_article.php?id=<?php echo($article['idArticle']); ?>">Modifier l'article</a>
-                                    <a href="delete_article.php?id=<?php echo($article['idArticle']); ?>">Supprimer l'article</a>
-                                 <?php endif;?>
-                                 <?php endif;?>
+                                    <a href="update_article_non_valide.php?id=<?php echo($article['idArticle']); ?>">Valider l'article</a>
+                                <?php endif;?>
                             </article>
                         </div> 
                     <?php endforeach ?>
@@ -70,6 +60,5 @@ require_once(__DIR__ . '/functions.php');
     <footer>
         <?php require_once(__DIR__.'/footer.php');?>
     </footer>
-   
 </body>
 </html>
